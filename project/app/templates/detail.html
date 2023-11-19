@@ -1,0 +1,72 @@
+{% extends 'home.html' %}
+
+{% load humanize %}
+
+{% block title %}
+    Product Detail
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5 mx-auto d-flex justify-content-center row"style="width: 900px">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">{{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arialabel="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="card mb-5">
+            <div class="card-body p-5">
+                <div class="row">
+                    <div class="col-lg-5">
+                        {% if products.image %}
+                        <img src="/static/image/{{products.image}}" width="300px" class="my-3">
+                    {% endif %}
+                    </div>
+    
+                    <div class="col-lg-5 offset-lg-1 mt-3">
+                        <h3 class="mb-3">{{ products.name }}</h3>
+    
+                        <p class="card-title mb-3">Category : {{ products.category }}</p>
+    
+                        <p class="card-text mb-3">Description : {{ products.description }}</p>
+    
+                        <p class="card-text mb-3">Price : {{ products.price }} MMK</p>
+    
+                        <div class="mt-5">
+                            <a href='/app/orderpage/{{products.id}}/' class="btn btn-outline-success">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% for c in cmts %}
+            <div class="d-flex">
+                <h5 class="col-10">{{c.content}}</h5> 
+                
+                {% if user.is_authenticated %}
+                    {% if user.id == c.user_id %}
+                        <div class="col-2 text-end">
+                            <a href="/app/cmt/delete/{{products.id}}/{{c.id}}" title="delete" class="link-underline link-underline-opacity-0 text-danger me-2"><i class="fa-solid fa-trash"></i></a>
+                            <a href="/app/cmt/update/{{products.id}}/{{c.id}}" title="edit" class="link-underline link-underline-opacity-0 text-primary"><i class="fa-solid fa-pen"></i></a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <hr>
+        {% endfor %}    
+
+        {% if user.is_authenticated %}
+            <form method="POST" action="/app/cmt/create/{{products.id}}/" class="mt-5">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" name="content" class="form-control" placeholder="Writeacomment...">
+                    <button class="btn btn-success" type="submit">Comment</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

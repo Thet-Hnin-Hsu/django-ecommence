@@ -1,0 +1,45 @@
+{% extends 'home.html' %}
+
+{% load humanize %}
+
+{% block title %}
+    Order Detail
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5 mx-auto d-flex justify-content-center row"style="width: 900px">
+        <div class="card mb-5">
+            <div class="card-body p-5">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img src="/static/image/{{orders.product.image}}" width="200px" class="my-3">
+                    </div>
+    
+                    <div class="col-lg-8 offset-lg-1 mt-3">
+                        <h3 class="mb-3">Product : {{ orders.product.name }}</h3>
+    
+                        <p class="card-title mb-3">Category : {{ orders.product.category }}</p>
+    
+                        <p class="card-text mb-3">Description : {{ orders.product.description }}</p>
+    
+                        <p class="card-text mb-3">Price : {{ orders.product.price }} MMK</p>
+
+                        <p class="card-text mb-3">Qty : {{ orders.quantity }}</p>
+
+                        <p class="card-text mb-3">Name : {{ orders.user.username }}</p>
+
+                        <p class="card-text mb-3">Email : {{ orders.user.email }}</p>
+
+                        <p class="card-text mb-3">Address : {{ orders.address }}</p>
+
+                        <p class="card-text mb-3">City : {{ orders.city }}</p>
+                        
+                        <p class="card-text mb-3">State : {{ orders.state }}</p>
+
+                        <p class="card-text mb-3">Phone : {{ orders.phone }}</p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<nav class="navbar bg-dark border-bottom border-body px-5 navbar-expand-lg bg-body-tertiary"  data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-warning" href="/app/list/">SMITH</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white active" aria-current="page" href="/app/list/">Home</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white active" aria-current="page" href="/app/order/list/{{user.id}}">Orders</a>
+                    </li>
+
+                    <div class="dropdown">
+                        <button class="btn btn-outline-white text-capitalize dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ user.username }}
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">{{ user.email }}</a></li>
+                        <li><a class="dropdown-item" href="/logout/">Logout</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/login/">Login</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/register/">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <form class="d-flex" action="/app/search_by/">
+                <input class="form-control me-2" type="search" name="search" placeholder="Search" arialabel="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
